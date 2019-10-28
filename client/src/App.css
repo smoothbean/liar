@@ -1,24 +1,9 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "one quotes two";
+  height: 100vh;
 }
 
 .one {
@@ -33,17 +18,14 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: center;
   align-items: center;
   width: 100%;
+  overflow-y: auto;
 }
 
-.quote_wrapper {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  flex: 1;
-  /* height: 200px; */
+.quote {
+  height: 290px;
+  width: 900px;
 }
 
 .reverse {

@@ -22,32 +22,20 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <div class="row">
-          <div
-            class="
-                col-md-3 one">
-            1
-          </div>
-          <div
-            class="
-                col-md-6 two">
-            <div class="quotes">
-              <div class="quote_wrapper">
-                <img src="/speech.png" class="speech" />
-              </div>
-              <div class="quote_wrapper">
-                <img src="/speech.png" class="speech reverse" />
-              </div>
-              <div class="quote_wrapper">
-                <img src="/speech.png" class="speech" />
-              </div>
+        <div className="grid">
+          <div className="one">1</div>
+          <div className="quotes">
+            <div className="quote_wrapper">
+              <img src="/speech.png" className="quote" />
+            </div>
+            <div className="quote_wrapper">
+              <img src="/speech.png" className="quote reverse" />
+            </div>
+            <div className="quote_wrapper">
+              <img src="/speech.png" className="quote" />
             </div>
           </div>
-          <div
-            class="
-                col-md-3 one">
-            3
-          </div>
+          <div className="two">3</div>
         </div>
       </div>
     );
