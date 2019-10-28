@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import "flexboxgrid";
 
 export default class App extends Component {
   constructor(props) {
@@ -21,17 +22,33 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>{this.state.apiResponse}</p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer">
-            Learn React
-          </a>
-        </header>
+        <div class="row">
+          <div
+            class="
+                col-md-3 one">
+            1
+          </div>
+          <div
+            class="
+                col-md-6 two">
+            <div class="quotes">
+              <div class="quote_wrapper">
+                <img src="/speech.png" class="speech" />
+              </div>
+              <div class="quote_wrapper">
+                <img src="/speech.png" class="speech reverse" />
+              </div>
+              <div class="quote_wrapper">
+                <img src="/speech.png" class="speech" />
+              </div>
+            </div>
+          </div>
+          <div
+            class="
+                col-md-3 one">
+            3
+          </div>
+        </div>
       </div>
     );
   }
