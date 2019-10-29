@@ -4,14 +4,35 @@
   grid-template-rows: 1fr;
   grid-template-areas: "one quotes two";
   height: 100vh;
+  background-image: url("/background.png");
+  font-size: 30px;
 }
 
 .one {
-  background-color: red;
+  grid: "one";
+  position: relative;
+  text-align: right;
 }
 
 .two {
-  background-color: blue;
+  grid: "two";
+  position: relative;
+}
+
+.pagination {
+  cursor: pointer;
+  position: absolute;
+  bottom: 20px;
+  color: #fff;
+}
+
+.prev {
+  right: 0;
+}
+
+.pagination:hover {
+  text-decoration: underline;
+  text-decoration-color: red;
 }
 
 .quotes {
@@ -19,6 +40,7 @@
   flex-direction: column;
   height: 100%;
   align-items: center;
+  justify-content: center;
   width: 100%;
   overflow-y: auto;
 }
@@ -26,6 +48,21 @@
 .quote {
   height: 290px;
   width: 900px;
+}
+
+.quote_wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.quote_text {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
+
+.quote_text--reverse {
+  left: 240px;
 }
 
 .reverse {
