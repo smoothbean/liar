@@ -4,7 +4,9 @@
   grid-template-rows: 1fr;
   grid-template-areas: "one quotes two";
   height: 100vh;
-  background-image: url("/background.png");
+  background-image: url("/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
   font-size: 30px;
 }
 
@@ -23,7 +25,7 @@
   cursor: pointer;
   position: absolute;
   bottom: 20px;
-  color: #fff;
+  color: #2ec;
 }
 
 .prev {
@@ -46,19 +48,24 @@
 }
 
 .quote {
-  height: 290px;
-  width: 900px;
+  width: 500px;
 }
 
 .quote_wrapper {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  height: 290px;
+  width: 900px;
 }
 
 .quote_text {
   position: absolute;
   top: 100px;
-  left: 100px;
+  left: 275px;
+  font-size: 18px;
 }
 
 .quote_text--reverse {

@@ -55,18 +55,20 @@ export default class App extends Component {
     return (
       <div className="quotes">
         <div className="quote_wrapper">
-          <img src="/speech.png" className="quote" alt="quote" />
-          <p className="quote_text">{quotes[0] ? quotes[0].quote : ""}</p>
-        </div>
-        <div className="quote_wrapper">
-          <img src="/speech.png" className="quote reverse" alt="quote" />
-          <p className="quote_text quote_text--reverse    ">
-            {quotes[1] ? quotes[1].quote : ""}
+          <img src="/speech.svg" className="quote reverse" alt="quote" />
+          <p className="quote_text quote_text--reverse">
+            {quotes[0] ? quotes[0].quote : ""}
           </p>
         </div>
         <div className="quote_wrapper">
-          <img src="/speech.png" className="quote" alt="quote" />
-          <p className="quote_text">{quotes[2] ? quotes[2].quote : ""}</p>
+          <img src="/speech.svg" className="quote " alt="quote" />
+          <p className="quote_text">{quotes[1] ? quotes[1].quote : ""}</p>
+        </div>
+        <div className="quote_wrapper">
+          <img src="/speech.svg" className="quote reverse" alt="quote" />
+          <p className="quote_text quote_text--reverse">
+            {quotes[2] ? quotes[2].quote : ""}
+          </p>
         </div>
       </div>
     );
