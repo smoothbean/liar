@@ -93,6 +93,7 @@
   max-width: 420px;
   word-wrap: wrap;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .quote_text--reverse {
