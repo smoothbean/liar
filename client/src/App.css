@@ -22,7 +22,7 @@
 }
 
 .title {
-  color: blue;
+  color: red;
   -webkit-text-stroke: 2px black;
   font-size: 60px;
 }
