@@ -151,7 +151,7 @@ export default class App extends Component {
 
     return (
       <div className="quotes">
-        <img src="find the lie.svg" height={50}></img>
+        <div className="title">Find the lie.</div>
         <div className="quote_wrapper">
           <img
             src={speechImg[0]}
