@@ -14,7 +14,7 @@ export default class App extends Component {
   }
 
   callAPI() {
-    fetch("http://localhost:9000/quotes")
+    fetch("http://api.codeloom.co.uk/quotes")
       .then(res => res.text())
       .then(res =>
         this.setState({
