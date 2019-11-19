@@ -105,6 +105,16 @@
   top: 90px;
 }
 
+.answer {
+  position: absolute;
+  top: 120px;
+  right: 220px;
+  z-index: 1000;
+  font-size: 30px;
+  color: red;
+  -webkit-text-stroke: 1px black;
+}
+
 .reverse {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);

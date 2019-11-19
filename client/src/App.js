@@ -67,7 +67,6 @@ export default class App extends Component {
   }
 
   handleRestart() {
-    console.log("reeet");
     this.callAPI();
   }
 
@@ -116,6 +115,11 @@ export default class App extends Component {
           {"<- Prev"}
         </p>
       );
+  }
+
+  renderAnswer(img) {
+    if (img == "speech-green.svg") return <p className="answer">Truth</p>;
+    if (img == "speech-red.svg") return <p className="answer">Lie</p>;
   }
 
   renderQuotes() {
@@ -179,6 +183,7 @@ export default class App extends Component {
             }}>
             {quotes[0] ? quotes[0].quote : ""}
           </p>
+          {this.renderAnswer(speechImg[0], true)}
         </div>
         <div className="quote_wrapper">
           <img
@@ -207,6 +212,7 @@ export default class App extends Component {
             }}>
             {quotes[1] ? quotes[1].quote : ""}
           </p>
+          {this.renderAnswer(speechImg[1])}
         </div>
         <div className="quote_wrapper">
           <img
@@ -235,6 +241,7 @@ export default class App extends Component {
             }}>
             {quotes[2] ? quotes[2].quote : ""}
           </p>
+          {this.renderAnswer(speechImg[2], true)}
         </div>
       </div>
     );
