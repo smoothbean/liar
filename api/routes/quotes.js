@@ -207,7 +207,7 @@ router.post("/", function(req, res, next) {
 
         Object.keys(req.body.chosen).forEach(question_id => {
           con.query(
-            `insert into liar.chosen (question_id, answer_id, group_id, ip_address) values (${question_id}, ${req.body[question_id]}, ${group_id}, '${req.body.ip}');`,
+            `insert into liar.chosen (question_id, answer_id, group_id, ip_address) values (${question_id}, ${req.body.chosen[question_id]}, ${group_id}, '${req.body.ip}');`,
             function(err, result) {
               if (err) throw err;
             }
