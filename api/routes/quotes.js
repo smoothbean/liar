@@ -154,7 +154,7 @@ router.get("/", function(req, res, next) {
         quote: "The 20 warmest years on record have been in the last 22 years.",
         isTrue: 1
       },
-      { id: 27, quote: "Climate change could reverse its self.", isTrue: 0 }
+      { id: 27, quote: "Climate change could reverse itself.", isTrue: 0 }
     ],
     [
       {

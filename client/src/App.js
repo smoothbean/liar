@@ -95,14 +95,16 @@ export default class App extends Component {
       this.state.chosen[this.state.page]
     )
       return (
-        <p className="pagination" onClick={this.handleNext}>
-          Next ->
+        <p className="pagination pagination--next" onClick={this.handleNext}>
+          <span>Next -></span>
         </p>
       );
 
     if (this.state.page == 9 && this.state.chosen[this.state.page])
       return (
-        <p className="pagination" onClick={this.handleFinish}>
+        <p
+          className="pagination pagination--finish"
+          onClick={this.handleFinish}>
           Finish
         </p>
       );
@@ -111,8 +113,8 @@ export default class App extends Component {
   renderPrev() {
     if (this.state.page > 0)
       return (
-        <p className="pagination prev" onClick={this.handlePrev}>
-          {"<- Prev"}
+        <p className="pagination pagination--prev" onClick={this.handlePrev}>
+          <span>{`<- Prev`}</span>
         </p>
       );
   }
