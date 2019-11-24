@@ -177,4 +177,48 @@ router.get("/", function(req, res, next) {
   ]);
 });
 
+// CREATE TABLE `liar`.`chosen` (
+//   `id` INT NOT NULL AUTO_INCREMENT,
+//   `question_id` INT(11) NOT NULL,
+//   `answer_id` INT(11) NOT NULL,
+//   `group_id` INT(11) NOT NULL,
+//   `ip_address` VARCHAR(100) NULL,
+//   PRIMARY KEY (`id`));
+
+router.post("/", function(req, res, next) {
+  var mysql = require("mysql");
+
+  var con = mysql.createConnection({
+    host: "localhost",
+    user: "sufia_codeloom_co_uk",
+    password: "sufia_codeloom_co_uksdatabaseisapassword"
+    // host: "localhost",
+    // user: "jack",
+    // password: "pineappleonpizza"
+  });
+
+  con.connect(function(err) {
+    if (err) throw err;
+    con.query("select * from liar.chosen group by group_id;", function(
+      err,
+      result
+    ) {
+      if (err) throw err;
+      let group_id = result.length + 1;
+
+      Object.keys(req.body).forEach(question_id => {
+        con.query(
+          `insert into liar.chosen (question_id, answer_id, group_id, ip_address) values (${question_id}, ${req.body[question_id]}, ${group_id}, '${req.connection.remoteAddress}');`,
+          function(err, result) {
+            if (err) throw err;
+          }
+        );
+      });
+      res.send("done");
+    });
+  });
+
+  // res.send("done");
+});
+
 module.exports = router;

@@ -15,6 +15,7 @@ export default class App extends Component {
 
   callAPI() {
     fetch("http://api.codeloom.co.uk/quotes")
+      // fetch("http://127.0.0.1:9000/quotes")
       .then(res => res.text())
       .then(res =>
         this.setState({
@@ -60,10 +61,20 @@ export default class App extends Component {
       }
     });
 
-    this.setState({
-      page: "fin",
-      score: `${score}/10`
-    });
+    console.log(JSON.stringify(this.state.chosen));
+    fetch("http://api.codeloom.co.uk/quotes", {
+      // fetch("http://127.0.0.1:9000/quotes", {
+      method: "post",
+      body: JSON.stringify(this.state.chosen),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => res.text())
+      .then(res =>
+        this.setState({
+          page: "fin",
+          score: `${score}/10`
+        })
+      );
   }
 
   handleRestart() {
@@ -125,6 +136,7 @@ export default class App extends Component {
   }
 
   renderQuotes() {
+    console.log(this.state);
     if (this.state.page == "fin")
       return (
         <div className="score_wrapper">
@@ -255,7 +267,14 @@ export default class App extends Component {
         <div className="grid">
           <div className="one"></div>
           {this.renderQuotes()}
-          <div className="two">{this.renderNext()}</div>
+          <div className="two">
+            {this.renderNext()}{" "}
+            <p
+              className="pagination pagination--finish"
+              onClick={this.handleFinish}>
+              Finish
+            </p>
+          </div>
         </div>
       </div>
     );
