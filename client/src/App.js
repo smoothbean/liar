@@ -33,9 +33,11 @@ export default class App extends Component {
   componentWillMount() {
     this.callAPI();
 
-    fetch("https://geoip-db.com/json")
+    fetch(
+      "http://api.ipapi.com/92.237.197.224?access_key=5aa21bac1114e79b9c2133bdad1d65c0"
+    )
       .then(res => res.json())
-      .then(json => this.setState({ ip: json.IPv4 }));
+      .then(json => this.setState({ ip: json.ip }));
   }
 
   handleNext() {
