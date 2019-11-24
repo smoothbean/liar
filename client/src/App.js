@@ -32,6 +32,10 @@ export default class App extends Component {
 
   componentWillMount() {
     this.callAPI();
+
+    fetch("https://geoip-db.com/json")
+      .then(res => res.json())
+      .then(json => this.setState({ ip: json.IPv4 }));
   }
 
   handleNext() {
@@ -61,11 +65,10 @@ export default class App extends Component {
       }
     });
 
-    console.log(JSON.stringify(this.state.chosen));
     fetch("http://api.codeloom.co.uk/quotes", {
       // fetch("http://127.0.0.1:9000/quotes", {
       method: "post",
-      body: JSON.stringify(this.state.chosen),
+      body: JSON.stringify({ ip: this.state.ip, chosen: this.state.chosen }),
       headers: { "Content-Type": "application/json" }
     })
       .then(res => res.text())
@@ -136,7 +139,6 @@ export default class App extends Component {
   }
 
   renderQuotes() {
-    console.log(this.state);
     if (this.state.page == "fin")
       return (
         <div className="score_wrapper">
@@ -262,6 +264,7 @@ export default class App extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         <div className="grid">
