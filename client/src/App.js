@@ -267,14 +267,7 @@ export default class App extends Component {
         <div className="grid">
           <div className="one"></div>
           {this.renderQuotes()}
-          <div className="two">
-            {this.renderNext()}{" "}
-            <p
-              className="pagination pagination--finish"
-              onClick={this.handleFinish}>
-              Finish
-            </p>
-          </div>
+          <div className="two">{this.renderNext()} </div>
         </div>
       </div>
     );
