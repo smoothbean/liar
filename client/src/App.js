@@ -17,17 +17,35 @@ export default class App extends Component {
     fetch("http://api.codeloom.co.uk/quotes")
       // fetch("http://127.0.0.1:9000/quotes")
       .then(res => res.text())
-      .then(res =>
+      .then(res => {
+        const quotes = JSON.parse(res).map(quotes => {
+          quotes = quotes.sort(() => Math.random() - 0.5);
+          return quotes;
+        });
+
+        if (window.location.pathname == "/results") {
+          fetch("http://api.codeloom.co.uk/results")
+            // fetch("http://127.0.0.1:9000/results")
+            .then(res => res.text())
+            .then(res =>
+              this.setState({
+                results: JSON.parse(res),
+                quotes,
+                page: 0,
+                chosen: {},
+                speechImgs: {}
+              })
+            );
+        }
+
         this.setState({
-          quotes: JSON.parse(res).map(quotes => {
-            quotes = quotes.sort(() => Math.random() - 0.5);
-            return quotes;
-          }),
+          quotes,
           page: 0,
           chosen: {},
-          speechImgs: {}
-        })
-      );
+          speechImgs: {},
+          results: {}
+        });
+      });
   }
 
   componentWillMount() {
@@ -265,12 +283,26 @@ export default class App extends Component {
     );
   }
 
+  renderLink() {
+    if (window.location.pathname == "/results")
+      return (
+        <a href="/" className="result_link">
+          Game
+        </a>
+      );
+    return (
+      <a href="/results" className="result_link">
+        Results
+      </a>
+    );
+  }
+
   render() {
-    console.log(this.state);
+    console.log(this.state.results);
     return (
       <div className="App">
         <div className="grid">
-          <div className="one"></div>
+          <div className="one">{this.renderLink()}</div>
           {this.renderQuotes()}
           <div className="two">{this.renderNext()} </div>
         </div>

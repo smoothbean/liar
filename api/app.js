@@ -6,6 +6,7 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var quotesRouter = require("./routes/quotes");
+var resultsRouter = require("./routes/results");
 var bodyParser = require("body-parser");
 
 var app = express();
@@ -30,6 +31,7 @@ app.use(
 
 app.use("/", indexRouter);
 app.use("/quotes", quotesRouter);
+app.use("/results", resultsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

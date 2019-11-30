@@ -27,6 +27,20 @@
   font-size: 40px;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+.result_link {
+  position: absolute;
+  left: 10px;
+  font-size: 20px;
+}
+
 .restart {
   cursor: pointer;
   color: red;
@@ -202,6 +216,10 @@
   .pagination {
     bottom: 20px;
     font-size: 120px;
+  }
+
+  .result_link {
+    font-size: 40px;
   }
 }
 
