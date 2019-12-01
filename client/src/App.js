@@ -312,13 +312,15 @@ export default class App extends Component {
         if (!results[qId]) results[qId] = 0;
       });
 
+      let trueList = {};
       Object.keys(this.state.results).forEach(resId => {
         const res = this.state.results[resId];
         const qId = res.question_id;
-        if (quotes[qId][res.answer_id].isTrue) results[qId]++;
+        if (quotes[qId][res.answer_id].isTrue) {
+          results[qId]++;
+          trueList[qId] = quotes[qId][res.answer_id].quote;
+        }
       });
-
-      console.log(results, "resul");
 
       let min = false;
       let max = false;
@@ -329,8 +331,6 @@ export default class App extends Component {
         if (!min || results[r] < min) min = results[r];
         if (!max || results[r] > max) max = results[r];
       });
-
-      console.log(total / min);
 
       const data = {
         labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
@@ -359,6 +359,13 @@ export default class App extends Component {
                 width={800}
                 height={800}
                 options={{
+                  tooltips: {
+                    callbacks: {
+                      label: tooltipItem => {
+                        return trueList[tooltipItem.index];
+                      }
+                    }
+                  },
                   maintainAspectRatio: false,
                   scales: {
                     xAxes: [
