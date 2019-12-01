@@ -92,12 +92,17 @@ a:visited {
   justify-content: flex-start;
 }
 
+.col {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .bar_wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 800px;
+  height: 400px;
   width: 100%;
+  margin-bottom: 50px;
 }
 
 .score {

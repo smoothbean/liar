@@ -313,21 +313,38 @@ export default class App extends Component {
       });
 
       let trueList = {};
+      let scores = {};
       Object.keys(this.state.results).forEach(resId => {
         const res = this.state.results[resId];
         const qId = res.question_id;
-        if (quotes[qId][res.answer_id].isTrue) {
+        const quote = quotes[qId][res.answer_id];
+
+        if (!scores[res.group_id]) scores[res.group_id] = 0;
+
+        if (quote.isTrue) {
           results[qId]++;
-          trueList[qId] = quotes[qId][res.answer_id].quote;
+          scores[res.group_id]++;
+          trueList[qId] = quote.quote;
         }
       });
 
+      let scoresArr = [];
+      let scoreMin = false;
+      let scoreMax = false;
+      for (let i = 1; i <= 10; i++) {
+        let count = 0;
+        Object.keys(scores).forEach(s => {
+          if (scores[s] == i) count = count + 1;
+        });
+        if (!scoreMin || count < scoreMin) scoreMin = count;
+        if (!scoreMax || count > scoreMax) scoreMax = count;
+        scoresArr.push(count);
+      }
+      console.log(scores, scoresArr);
+
       let min = false;
       let max = false;
-      let total = 0;
-
       Object.keys(results).forEach(r => {
-        total = total + results[r];
         if (!min || results[r] < min) min = results[r];
         if (!max || results[r] > max) max = results[r];
       });
@@ -349,46 +366,106 @@ export default class App extends Component {
         ]
       };
 
+      const scoreData = {
+        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        datasets: [
+          {
+            label: "Scores",
+            backgroundColor: "rgba(200,120,240)",
+            borderColor: "rgba(200,79,240)",
+            borderWidth: 1,
+            barPercentage: 0.5,
+            hoverBackgroundColor: "rgba(200,170,240)",
+            order: 0,
+            data: scoresArr,
+            options: {}
+          }
+        ]
+      };
+
       return (
         <div className="App">
           <div className="grid results">
             <div className="one">{this.renderLink()}</div>
-            <div className="bar_wrapper">
-              <Bar
-                data={data}
-                width={800}
-                height={800}
-                options={{
-                  tooltips: {
-                    callbacks: {
-                      label: tooltipItem => {
-                        return trueList[tooltipItem.index];
+            <div className="col">
+              <div className="bar_wrapper">
+                <Bar
+                  data={data}
+                  width={800}
+                  height={800}
+                  options={{
+                    tooltips: {
+                      callbacks: {
+                        label: tooltipItem => {
+                          return `${tooltipItem.value} people got question ${
+                            tooltipItem.label
+                          } correct. Quote - "${trueList[tooltipItem.index]}"`;
+                        }
                       }
+                    },
+                    maintainAspectRatio: false,
+                    scales: {
+                      xAxes: [
+                        {
+                          stacked: true,
+                          scaleLabel: {
+                            display: true,
+                            labelString: "Question No."
+                          }
+                        }
+                      ],
+                      yAxes: [
+                        {
+                          stacked: true,
+                          ticks: {
+                            min: Math.floor(min - min / 10),
+                            max: Math.ceil(max + max / 10)
+                          }
+                        }
+                      ]
                     }
-                  },
-                  maintainAspectRatio: false,
-                  scales: {
-                    xAxes: [
-                      {
-                        stacked: true,
-                        scaleLabel: {
-                          display: true,
-                          labelString: "Question No."
+                  }}
+                />
+              </div>
+              <div className="bar_wrapper">
+                <Bar
+                  data={scoreData}
+                  width={800}
+                  height={800}
+                  options={{
+                    tooltips: {
+                      callbacks: {
+                        label: tooltipItem => {
+                          return `${tooltipItem.value} ${
+                            tooltipItem.value == 1 ? "person" : "people"
+                          } scored ${tooltipItem.label} points.`;
                         }
                       }
-                    ],
-                    yAxes: [
-                      {
-                        stacked: true,
-                        ticks: {
-                          min: Math.floor(min - min / 10),
-                          max: Math.floor(max + max / 10)
+                    },
+                    maintainAspectRatio: false,
+                    scales: {
+                      xAxes: [
+                        {
+                          stacked: true,
+                          scaleLabel: {
+                            display: true,
+                            labelString: "Score"
+                          }
                         }
-                      }
-                    ]
-                  }
-                }}
-              />
+                      ],
+                      yAxes: [
+                        {
+                          stacked: true,
+                          ticks: {
+                            min: Math.floor(scoreMin - scoreMin / 10),
+                            max: Math.ceil(scoreMax + scoreMax / 10)
+                          }
+                        }
+                      ]
+                    }
+                  }}
+                />
+              </div>
             </div>
             <div className="two"></div>
           </div>
