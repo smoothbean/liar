@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import { Bar } from "react-chartjs-2";
 
 export default class App extends Component {
   constructor(props) {
@@ -27,24 +28,24 @@ export default class App extends Component {
           fetch("http://api.codeloom.co.uk/results")
             // fetch("http://127.0.0.1:9000/results")
             .then(res => res.text())
-            .then(res =>
+            .then(res => {
               this.setState({
                 results: JSON.parse(res),
                 quotes,
                 page: 0,
                 chosen: {},
                 speechImgs: {}
-              })
-            );
+              });
+            });
+        } else {
+          this.setState({
+            quotes,
+            page: 0,
+            chosen: {},
+            speechImgs: {},
+            results: {}
+          });
         }
-
-        this.setState({
-          quotes,
-          page: 0,
-          chosen: {},
-          speechImgs: {},
-          results: {}
-        });
       });
   }
 
@@ -298,7 +299,96 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state.results);
+    if (window.location.pathname == "/results") {
+      if (!this.state.results) return <p>loading...</p>;
+
+      let results = {};
+      let quotes = {};
+      Object.keys(this.state.quotes).forEach(qId => {
+        quotes[qId] = {};
+        this.state.quotes[qId].map(a => {
+          quotes[qId][a.id] = a;
+        });
+        if (!results[qId]) results[qId] = 0;
+      });
+
+      Object.keys(this.state.results).forEach(resId => {
+        const res = this.state.results[resId];
+        const qId = res.question_id;
+        if (quotes[qId][res.answer_id].isTrue) results[qId]++;
+      });
+
+      console.log(results, "resul");
+
+      let min = false;
+      let max = false;
+      let total = 0;
+
+      Object.keys(results).forEach(r => {
+        total = total + results[r];
+        if (!min || results[r] < min) min = results[r];
+        if (!max || results[r] > max) max = results[r];
+      });
+
+      console.log(total / min);
+
+      const data = {
+        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        datasets: [
+          {
+            label: "Correct answers",
+            backgroundColor: "rgba(20,120,240)",
+            borderColor: "rgba(20,79,240)",
+            borderWidth: 1,
+            barPercentage: 0.5,
+            hoverBackgroundColor: "rgba(20,170,240)",
+            order: 0,
+            data: Object.keys(results).map(r => results[r]),
+            options: {}
+          }
+        ]
+      };
+
+      return (
+        <div className="App">
+          <div className="grid results">
+            <div className="one">{this.renderLink()}</div>
+            <div className="bar_wrapper">
+              <Bar
+                data={data}
+                width={800}
+                height={800}
+                options={{
+                  maintainAspectRatio: false,
+                  scales: {
+                    xAxes: [
+                      {
+                        stacked: true,
+                        scaleLabel: {
+                          display: true,
+                          labelString: "Question No."
+                        }
+                      }
+                    ],
+                    yAxes: [
+                      {
+                        stacked: true,
+                        ticks: {
+                          min: Math.floor(min - min / 10),
+                          max: Math.floor(max + max / 10)
+                        }
+                      }
+                    ]
+                  }
+                }}
+              />
+            </div>
+            <div className="two"></div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <div className="grid">
